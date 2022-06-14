@@ -12,6 +12,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    const RELATION_USER_ID = 'user_id';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -41,4 +43,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function projects()
+    {
+        $this->hasMany(Project::class);
+    }
+
 }
