@@ -19,11 +19,19 @@ class CreateTodosTable extends Migration
             $table->boolean(\App\Models\Todo::STATUS)->default(true);
             $table->boolean(\App\Models\Todo::IS_DONE)->default(true);
             $table->integer(\App\Models\Todo::TRACK_COUNTER)->default(0);
+
             $table->unsignedBigInteger(\App\Models\Project::RELATION_PROJECT_ID);
+            $table->unsignedBigInteger(\App\Models\User::RELATION_USER_ID);
 
             $table->foreign(\App\Models\Project::RELATION_PROJECT_ID)
                 ->references('id')
                 ->on('projects')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign(\App\Models\User::RELATION_USER_ID)
+                ->references('id')
+                ->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 

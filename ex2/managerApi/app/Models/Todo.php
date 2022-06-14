@@ -23,6 +23,11 @@ class Todo extends Model
 
     public function project()
     {
-        $this->hasOne(Project::class);
+        $this->belongsTo(Project::class);
+    }
+
+    public function user()
+    {
+        $this->belongsTo(User::class);
     }
 }

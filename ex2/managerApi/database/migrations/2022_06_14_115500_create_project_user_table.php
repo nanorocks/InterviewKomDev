@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersProjectTable extends Migration
+class CreateProjectUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUsersProjectTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_project', function (Blueprint $table) {
+        Schema::create('project_user', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger(\App\Models\User::RELATION_USER_ID);
             $table->unsignedBigInteger(\App\Models\Project::RELATION_PROJECT_ID);
