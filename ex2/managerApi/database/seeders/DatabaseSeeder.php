@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             ->each(function ($user) {
                 $user->projects()->saveMany(
                     Project::factory(rand(1,5))->create()->each(function ($project) use ($user) {
-                        Todo::factory(3)->create([
+                        Todo::factory(rand(2,5))->create([
                             Project::RELATION_PROJECT_ID => $project->id,
                             User::RELATION_USER_ID => $user->id
                         ]);
