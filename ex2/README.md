@@ -31,8 +31,26 @@ Todo
 
 The source code can be shared through a github/gitlab link or a zipfile.
 
+
+# Api documentation
+There is an postman collection import it to test the endpoints.
+
 ### Docker devbox
+The project is build on top of docker devbox so, all you need is to have docker desktop installed on you pc and then you can navigate to root to run: 
 
-docker-compose up -d | START
+docker-compose up -d | For starting the devbox
 
-docker-compose down | STOP
+docker-compose down | To clean up all containers
+
+### Project access
+
+- Project is running on http://localhost:80
+- Db client is running on http://localhost:54302
+
+### Env setup
+
+- All you need it to copy the .env.example to .env and run the todo manager container to execute
+	- php artisan key:generate
+	- php artisan migrate:fresh --seed
+
+- Default demo user password is: password
