@@ -47,6 +47,14 @@ docker-compose down | To clean up all containers
 - Project is running on http://localhost:80
 - Db client is running on http://localhost:54302
 
+Db creating for project
+- go to http://localhost:54302
+- set provider Mysql
+- set username root
+- set password secret
+- set server database
+- after login create database with name ex2 and ex2_test for testing
+
 ### Env setup
 
 - All you need it to copy the .env.example to .env and run the todo manager container to execute
