@@ -19,7 +19,7 @@ class Project extends Model
 
     public function todos()
     {
-        return $this->belongsToMany(Todo::class);
+        return $this->hasMany(Todo::class);
     }
 
     public function users()

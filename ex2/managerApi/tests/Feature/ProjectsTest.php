@@ -16,20 +16,38 @@ class ProjectsTest extends TestCase
         // get user
         $user = User::first();
 
-        // login user
+        // create token
+        $token = $user->createToken('auth_token')->plainTextToken;
 
         // generate project
         $project = Project::factory(1)->make()->first();
 
         // make request with auth headers
-        $response = $this->post('/api/projects', $project->toArray(), []);
+        $response = $this->post('/api/projects', $project->toArray(), [
+            "Authorization" => "Bearer " . $token,
+            "Accept"=>"application/json"
+        ]);
 
+        // return dd($response->json());
         // check status
         $response->assertStatus(201);
     }
 
     public function test_load_collection_of_projects()
     {
-        $this->assertTrue(true);
+        // get user
+        $user = User::first();
+
+        // create token
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        // make request with auth headers
+        $response = $this->get('/api/projects', [
+            "Authorization" => "Bearer " . $token,
+            "Accept"=>"application/json"
+        ]);
+
+        // check status
+        $response->assertStatus(200);
     }
 }

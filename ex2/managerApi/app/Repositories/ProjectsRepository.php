@@ -13,4 +13,9 @@ class ProjectsRepository extends AbstractRepository
      * @return string
      */
     protected $model = Project::class;
+
+    public function with(string $relationName)
+    {
+        return $this->modelInstance->with($relationName);
+    }
 }
