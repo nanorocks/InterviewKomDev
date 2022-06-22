@@ -1,7 +1,2 @@
 # InerviewKomDev
-
-### Docker devbox
-
-docker-compose up -d | START
-
-docker-compose down | STOP
+ Read the readme inside your exercise.
