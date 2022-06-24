@@ -5,37 +5,26 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Projects\StoreRequest;
 use App\Http\Resources\Projects\CollectionProjectResource;
 use App\Http\Resources\Projects\SingleProjectResource;
-use App\Models\Project;
-use App\Repositories\ProjectsRepository;
+use App\Services\ProjectService;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
-    public ProjectsRepository $projectRepository;
+    public ProjectService $projectService;
 
-    public function __construct(ProjectsRepository $projectRepository)
+    public function __construct(ProjectService $projectService)
     {
-        $this->projectRepository = $projectRepository;
+        $this->projectService = $projectService;
     }
 
     public function store(StoreRequest $request)
     {
-        $project = $this->projectRepository->create([
-            Project::PROJECT_NAME => $request->name
-        ]);
-
-        $user = auth('sanctum')->user();
-
-        $project->users()->attach($user->id);
-
-        // add project to database by user
-        return new SingleProjectResource($project);
+        return new SingleProjectResource($this->projectService->store($request));
     }
 
     public function paginate(Request $request)
     {
-        // list projects with todos by specific user and paginate
-        return new CollectionProjectResource($this->projectRepository->with('todos')->paginate($request->get('limit') ?? 10));
+        return new CollectionProjectResource($this->projectService->paginate($request->get('limit') ?? 10));
     }
 
 }

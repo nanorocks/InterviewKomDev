@@ -14,15 +14,19 @@ class User extends Authenticatable
 
     const RELATION_USER_ID = 'user_id';
 
+    const NAME = 'name';
+    const EMAIL = 'email';
+    const PASSWORD = 'password';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        self::NAME,
+        self::EMAIL,
+        self::PASSWORD,
     ];
 
     /**

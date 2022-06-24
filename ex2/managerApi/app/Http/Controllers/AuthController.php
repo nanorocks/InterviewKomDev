@@ -2,30 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Http\Requests\Users\StoreRequest;
+use App\Http\Resources\Users\AuthResource;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
-        ]);
 
-        $user = User::create([
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']),
-        ]);
+    public UserService $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
+    public function register(StoreRequest $request)
+    {
+        $user = $this->userService->create($request);
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
+        return new AuthResource([
             'access_token' => $token,
             'token_type' => 'Bearer',
         ]);
@@ -40,11 +39,11 @@ class AuthController extends Controller
             ], 401);
         }
 
-        $user = User::where('email', $request['email'])->firstOrFail();
+        $user = $this->userService->firstOrFail($request['email']);
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
+        return new AuthResource([
             'access_token' => $token,
             'token_type' => 'Bearer',
         ]);
@@ -52,6 +51,8 @@ class AuthController extends Controller
 
     public function me(Request $request)
     {
-        return $request->user();
+        return new AuthResource([
+            'user' => $request->user(),
+        ]);
     }
 }

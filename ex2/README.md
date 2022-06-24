@@ -60,5 +60,6 @@ Db creating for project
 - All you need it to copy the .env.example to .env and run the todo manager container to execute
 	- php artisan key:generate
 	- php artisan migrate:fresh --seed
+	- (for running tests) php artisan test
 
 - Default demo user password is: password
