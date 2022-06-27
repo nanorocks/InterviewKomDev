@@ -19,7 +19,7 @@ trait CreatesApplication
         $app->make(Kernel::class)->bootstrap();
 
         Artisan::call('migrate:fresh');
-        Artisan::call('db:seed --class TestUsersSeeder');
+        Artisan::call('db:seed');
 
         return $app;
     }
