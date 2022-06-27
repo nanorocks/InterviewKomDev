@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TodoController;
+use App\Http\Middleware\LoginApiMiddleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,16 +18,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login'])->middleware(LoginApiMiddleware::class);
 Route::post('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
 
-Route::post('/todos', [TodoController::class, 'store']);
-Route::put('/todos/{id}', [TodoController::class, 'isDone']);
-Route::get('/todos', [TodoController::class, 'paginate']);
-Route::delete('/todos/{id}', [TodoController::class, 'delete']);
-Route::get('/todos/{id}', [TodoController::class, 'todo']);
+Route::post('/todos', [TodoController::class, 'store'])->middleware('auth:sanctum');
+Route::put('/todos/{id}/isDone', [TodoController::class, 'isDone'])->middleware('auth:sanctum');
+Route::get('/todos', [TodoController::class, 'paginate'])->middleware('auth:sanctum');
+Route::delete('/todos/{id}', [TodoController::class, 'delete'])->middleware('auth:sanctum');
+Route::get('/todos/{id}', [TodoController::class, 'todo'])->middleware('auth:sanctum');
 
 Route::post('/projects', [ProjectController::class, 'store'])->middleware('auth:sanctum');
 Route::get('/projects', [ProjectController::class, 'paginate'])->middleware('auth:sanctum');
-
-

@@ -2,39 +2,43 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Todos\StoreRequest;
 use App\Http\Resources\Todos\CollectionTodoResource;
 use App\Http\Resources\Todos\SingleTodoResource;
+use App\Services\ProjectTodosService;
 use Illuminate\Http\Request;
 
 class TodoController extends Controller
 {
-    public function store()
+    public ProjectTodosService $todoService;
+
+    public function __construct(ProjectTodosService $todoService)
     {
-        // TODO add todo by user in project
-        return new SingleTodoResource();
+        $this->todoService = $todoService;
+    }
+
+    public function store(StoreRequest $request)
+    {
+        return new SingleTodoResource($this->todoService->store($request));
     }
 
     public function todo(int $id)
     {
-        // TODO single todo to show and add counter
-        return new SingleTodoResource();
+        return new SingleTodoResource($this->todoService->singleTodo($id));
     }
 
     public function isDone(int $id)
     {
-        // TODO update single todo as done
-        return new SingleTodoResource();
+        return new SingleTodoResource($this->todoService->singleTodoIsDone($id));
     }
 
-    public function paginate(int $id)
+    public function paginate(Request $request)
     {
-        // TODO list of todos for specific project and user
-        return new CollectionTodoResource();
+        return new CollectionTodoResource($this->todoService->paginate($request->get('limit') ?? 10));
     }
 
-    public function deleted(int $id)
+    public function delete(int $id)
     {
-        // TODO delete single todo
-        return new SingleTodoResource();
+        return new SingleTodoResource($this->todoService->delete($id));
     }
 }

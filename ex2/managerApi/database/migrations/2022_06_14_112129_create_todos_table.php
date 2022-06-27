@@ -16,8 +16,8 @@ class CreateTodosTable extends Migration
         Schema::create('todos', function (Blueprint $table) {
             $table->id();
             $table->string(\App\Models\Todo::DESCRIPTION);
-            $table->boolean(\App\Models\Todo::STATUS)->default(true);
-            $table->boolean(\App\Models\Todo::IS_DONE)->default(true);
+            $table->boolean(\App\Models\Todo::STATUS)->default(false);
+            $table->boolean(\App\Models\Todo::IS_DONE)->default(false);
             $table->integer(\App\Models\Todo::TRACK_COUNTER)->default(0);
 
             $table->unsignedBigInteger(\App\Models\Project::RELATION_PROJECT_ID);

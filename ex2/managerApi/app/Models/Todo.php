@@ -18,7 +18,14 @@ class Todo extends Model
         self::DESCRIPTION,
         self::STATUS,
         self::TRACK_COUNTER,
-        self::IS_DONE
+        self::IS_DONE,
+        Project::RELATION_PROJECT_ID,
+        User::RELATION_USER_ID
+    ];
+
+    protected $hidden = [
+        // 'user_id',
+        // 'project_id',
     ];
 
     public function project()

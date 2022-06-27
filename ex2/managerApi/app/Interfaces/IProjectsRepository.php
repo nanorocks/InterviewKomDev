@@ -3,12 +3,10 @@
 namespace App\Interfaces;
 
 use Illuminate\Database\Eloquent\Builder;
-
-interface IProjectsRepository
+use Torann\LaravelRepository\Contracts\RepositoryContract as IBaseRepository;
+interface IProjectsRepository extends IBaseRepository
 {
-  public function create(array $params);
 
   public function with(string $relationName): Builder;
 
-  public function paginate(int $limit);
 }

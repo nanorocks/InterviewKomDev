@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Interfaces\IProjectsRepository;
 use App\Models\Project;
-use App\Repositories\ProjectsRepository;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProjectService

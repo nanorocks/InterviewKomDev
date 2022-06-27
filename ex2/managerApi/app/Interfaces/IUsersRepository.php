@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Interfaces;
+use Torann\LaravelRepository\Contracts\RepositoryContract as IBaseRepository;
 
-interface IUsersRepository
+interface IUsersRepository extends IBaseRepository
 {
     public function create(array $params);
 
