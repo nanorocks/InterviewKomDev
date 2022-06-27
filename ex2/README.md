@@ -45,10 +45,10 @@ docker-compose down | To clean up all containers
 ### Project access
 
 - Project is running on http://localhost:80
-- Db client is running on http://localhost:54302
+- Db client is running on http://localhost:54320
 
 Db creating for project
-- go to http://localhost:54302
+- go to http://localhost:54320
 - set provider Mysql
 - set username root
 - set password secret
